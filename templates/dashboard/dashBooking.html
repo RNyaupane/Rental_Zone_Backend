@@ -1,0 +1,49 @@
+{% extends './dashBase.html' %}
+{% load static %}
+{% block content %}
+<div id="main">
+
+        <div class="head">
+            <div class="col-div-6">
+    <span style="font-size:30px;cursor:pointer; color: rgb(0, 0, 0);" class="nav"  >&#9776; Bookings</span>
+    <span style="font-size:30px;cursor:pointer; color: rgb(0, 0, 0);" class="nav2"  >&#9776; Bookings</span>
+    </div>
+    <br>
+    <br>
+    <br><br>
+    <div class="col-div-8">
+		<div class="box-8">
+		<div class="content-box">
+      <table class="appointments">
+        <thead>
+            <th scope="col">Booking Id</th>
+            <th scope="col">Customer</th>
+            <th scope="col">Owner</th>
+            <th scope="col">No of rooms</th>
+            <th scope="col">Date</th>
+            <th scope="col">Book Status</th>
+            <th scope="col">Room Price</th>
+        </thead>
+        <tbody>
+            {% for book in bookings %}
+
+            <tr>
+              <td>{{book.id}} </td>
+              <td>{{book.customer}}</td>
+              <td>{{book.room.owner}}</td>
+              <td>{{book.number_of_rooms}} / {{book.room.number_of_room}} </td>
+              <td>{{book.book_date}} </td>
+              <td>{{book.book_status}} </td>
+              <td>{{book.room.room_price}} </td>
+            </tr>
+           {% endfor %}
+          </tbody>
+        </table>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+            
+            </body>
+            {% endblock content %} 

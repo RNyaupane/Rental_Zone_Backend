@@ -1,0 +1,186 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Room Profile 9</title>
+  <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+     
+  <link rel="stylesheet" href=" {% static 'css/style.css' %} ">
+  <link rel="stylesheet" href="{% static 'css/rooms.css' %}">
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+  <link rel="stylesheet" href=" {% static 'css/roomProfile.css' %} ">
+  <script src="js/script.js"></script>
+  <style>
+    .commentContainer{
+      height: auto;
+      border-radius: 2px;
+      box-shadow: 2px 4px 8px 0 rgb(0 0 0 / 10%);
+      border: solid 1px #d6d6d6;
+      padding-left:10px;
+      padding-right:20px;
+    }
+    .commentContainer .personalComment{
+      background:rgb(226, 226, 226);
+      border-bottom:1px solid rgb(111, 110, 110);;
+      border-radius:1px;
+      font-size:1.3em;
+      padding:3px;
+    }
+    .commentContainer .personalComment span{
+      text-transform:lowercase;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- header  -->
+
+  <div class="wrapper">
+   {% include 'nav.html' %}
+  </div>
+
+  <!-- header ends -->
+
+  <!-- ***********Single Room Profile************* -->
+  <section>
+    <div class="card-wrapper">
+      <div class="card">
+        <!-- card left -->
+        <div class="product-imgs">
+          <div class="img-display">
+            <div class="img-showcase">
+              <img src="{{room.image1.url}}" alt="shoe image">
+            </div><br><br>
+          
+          </div>
+          {% comment %} **********Comment Container*********** {% endcomment %}
+          <div class="commentContainer" style="border: 2px solid rgb(207, 206, 206);">
+            
+            <h2>Comments:</h2>
+            {% for review in reviews %}
+            <div class="personalComment">
+              <label class="commentLabel"><b> {{review.user}}<span style="float:right">{{review.date}} </span> </b>
+              <p class="commentBox">{{review.text}}</p>
+              </div>
+              {% endfor %}
+          </div>
+        </div>
+        
+
+        <div class="product-content">
+          <h3 class="room-title">{{room.city}}</h3>
+          {% comment %} <a href="#" class="product-link">new</a> {% endcomment %}
+          
+
+          <div class="product-price">
+            <p class="new-price">Price: <span>Rs. {{room.room_price}}</span></p>
+          </div>
+
+          <div class="product-detail">
+            <h2>More about Room: </h2>
+            
+            <ul>
+              <li>Parking: <span>
+                
+                {% if room.parking %}
+                Yes
+                {% else %}
+                No
+                {% endif %}
+                
+
+
+              </span></li>
+              <li>Area of Rooms: <span> {{room.area_of_room}} </span></li>
+              <li>No of Rooms: <span>{{room.number_of_room}} </span></li>
+              <li>Floor: <span>{{room.floor}}</span></li>
+              <li>Address: <span>{{room.address}}</span></li>
+              <li>Contact: <span>{{room.owner.phone}}</span></li>
+              
+              <li>Rating: <span><b>{{reviews_avg.rate__avg}}</b>({{reviews_counts}} )
+            </ul>
+          </div>
+           
+
+
+          {%if user.user_type == 'room_owner' %}
+            <div
+              class="d-flex justify-content-between total font-weight-bold mt-4"
+            >
+            <a href="/editRoom/{{room.id}}">  <button class="success">Update</button
+              >
+            </a>
+            <a href="/deleteRoom/{{room.id}}">
+              <button class="Danger">Delete</button>
+            </a>
+            </div>
+            {% endif %}
+
+          <div class="purchase-info">
+            {% if user.user_type == "customer" %}
+            <a href="/bookRoom/{{room.id}}">
+            <button type="button" class="btn">
+              Book
+            </button>
+          </a>
+          <a href="/rateRoomView/{{room.id}}">
+            <button type="button" class="btn">Rate this room</button>
+          </a>
+          {% endif %}
+          </div>
+        </div>
+      </div>
+  </section>
+  {% comment %} <div class="categories" id="rooms">
+
+    <h1 class="heading"> Recently Viewed Rooms</h1>
+
+    <div class="box-container">
+      {% for s_room in sessionRoomObj %}
+      <div class="box">
+        <img src=" " class="rImg" alt="">
+        <h3>Kitchen</h3>
+        <p>Price: &nbsp;<b>Rs. 5000</b> </p>
+        <p>Location: &nbsp;<b>{{request.session.get('recently_viewed')}}</b> </p>
+        <a href="#" class="viewDetainbtn">View details</a>
+      </div>
+      {% endfor %}
+      <div class="box">
+        <img src="image/room1.jpg" class="rImg" alt="">
+        <h3>Single Room</h3>
+        <p>Price: &nbsp;<b>Rs. 6,000</b> </p>
+        <p>Location: &nbsp;<b>Baneshwor</b> </p>
+        <a href="#" class="viewDetainbtn">View details</a>
+      </div>
+
+      <div class="box">
+        <img src="image/room2.jpg" class="rImg" alt="">
+        <h3>Kitchen room</h3>
+        <p>Price: &nbsp;<b>Rs. 4,500</b> </p>
+        <p>Location: &nbsp;<b>Baneshwor</b> </p>
+        <a href="#" class="viewDetainbtn">View details</a>
+      </div>
+  
+    </div>
+  </div> {% endcomment %}
+
+  <!-- footer section starts  -->
+  <br><br><br><br>
+{% include 'footer.html' %}
+  <!-- footer section ends -->
+
+
+  <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
+</body>
+
+</html>

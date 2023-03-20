@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" -->
+
+  <!----======== CSS ======== -->
+ 
+  <link rel="stylesheet" href=" {% static 'css/rating.css' %}">
+
+  <!----===== Iconscout CSS ===== -->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+  <title>Responsive Regrisation Form </title>
+  <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" /> 
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+  <script src="https://kit.fontawesome.com/f815347d2a.js" crossorigin="anonymous"></script> 
+  <script src="../static/js/rating.js">
+  </script>
+
+</head>
+
+<body>
+<!-- header  -->
+
+<div class="wrapper">
+{% include 'nav.html' %}
+</div>
+<!-- header ends -->
+{% if request.user.is_authenticated %}
+  <div class="container">
+    <h1>Rating</h1>
+    <span id="result"></span>
+    <br>
+    {% comment %} <form method="POST" action={% url 'roomView' 'room.id' %} name="form" onsubmit="return validateForm()"> {% endcomment %}
+      <form method="POST" action=" " name="form" onsubmit="return validateForm()">
+      {% csrf_token %}
+      <div class="form first">
+        <div class="details personal">
+          <span class="title"></span>
+          <div class="fields">
+            <div class="input-field">
+              <label>Rating</label>
+              <select name="rate" id="rating">
+                <option selected>Rate form 0-10</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </div>
+            <div>
+              <label>Review</label>
+              <textarea name="text" id="textarea" placeholder="Enter room review" cols="20" rows="20"></textarea>
+              </div>
+        <button type="submit" class="nextBtn" value="submit">
+         Submit
+        </button>
+      </div>
+  </div>
+  </form>
+</div>
+{% endif %}
+</body>
+
+</html>

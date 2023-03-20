@@ -1,0 +1,111 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" -->
+
+  <!----======== CSS ======== -->
+ 
+  <link rel="stylesheet" href=" {% static 'css/book.css' %}">
+
+  <!----===== Iconscout CSS ===== -->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+  <title>Responsive Regrisation Form </title>
+  <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" /> 
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+  <script src="https://kit.fontawesome.com/f815347d2a.js" crossorigin="anonymous"></script> 
+  {% comment %} <script src="../static/js/register.js"> {% endcomment %}
+  </script>
+
+</head>
+
+<body>
+<!-- header  -->
+
+<div class="wrapper">
+  <nav>
+    <input type="checkbox" id="show-menu">
+    <label for="show-menu" class="menu-icon"><i class="fas fa-bars"></i></label>
+    <div class="content">
+      <div class="logo"><a href="#">Rental&nbsp;Zone</a></div>
+      <ul class="links">
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        <li><a href="/">Home</a></li>
+        <li><a href="#aboutUs">About</a></li>
+        <li><a href="{% url 'roomList' %}">Rooms</a></li>
+        <li><a href="#contactUs">Contact</a></li>
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        
+        {% if request.user.is_staff %}
+        <li><a href="/accounts/dashboard" class="navButton" >Dashboard</a></li>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+        <li><a href="/accounts/logout" class="navButton" >Logout</a></li>
+        <li><a href="/accounts/userProfile" class="navButton" >Profile</a></li>
+        {% else %}  
+        <li><a href="{% url 'login' %}" class="navButton" >Login</a></li>
+        <li><a href="/accounts/register" class="navButton" >Register</a></li>
+        {% endif%}
+    </div>
+  </nav>
+
+</div>
+<!-- header ends -->
+
+
+
+  <div class="container">
+    <h1>Book Form</h1>
+    <span id="result"></span>
+    <br>
+    <form method="POST" action="" onsubmit="return validateForm()">
+      {% csrf_token %}
+      <div class="form first">
+        <div class="details personal">
+          <span class="title"></span>
+          <div class="fields">
+            <div class="input-field">
+              <label>No of Rooms: {{room.number_of_room}}</label><br>
+              <input type="number" name="number_of_rooms" id="rnum" max placeholder="Enter number of rooms">
+            </div>
+            {% comment %} <div class="input-field">
+              <label>Amount</label><br>
+              <input type="number" name="amount" id="rnum" placeholder="Enter amount paid">
+            </div> {% endcomment %}
+            <div class="input-field">
+              <label>Checkin Date</label><br>
+              <input type="date" name="checkin_date" id="date" placeholder="Enter valid date">
+            </div>
+            {% comment %} <div class="input-field">
+                <label>Payment Method</label>
+                <select name="method" id="method" name="user_type">
+                    <option selected default value="none">Select Method</option>
+                    <option value="online" >Online</option>
+                    <option value="offline">Offline</option>
+                  </select>
+            </div> {% endcomment %}
+            {% comment %} <div class="check">
+                <input type="checkbox">
+                <label>paid</label>
+              </div> {% endcomment %}
+
+        <button type="submit" class="nextBtn">
+          <span type="submit" class="btnText" id="btn">Book</span>
+          {% comment %} <button type="submit" value="Book"> {% endcomment %}
+          </button>
+        </button>
+      </div>
+  </div>
+  </form>
+  </div>
+</body>
+
+</html>

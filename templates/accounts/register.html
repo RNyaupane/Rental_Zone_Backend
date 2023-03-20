@@ -1,0 +1,114 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" -->
+
+  <!----======== CSS ======== -->
+
+  {% comment %} <link rel="stylesheet" href="static/css/register.css"> {% endcomment %}
+  <link rel="stylesheet" href="{% static 'css/register.css' %}"> 
+  <!----===== Iconscout CSS ===== -->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+  <title>Responsive Regrisation Form </title>
+  <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" /> 
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+  <script src="https://kit.fontawesome.com/f815347d2a.js" crossorigin="anonymous"></script> 
+  <script src="{% static 'js/register.js' %}">
+  </script>
+</head>
+<body>
+<!-- header  -->
+
+<div class="wrapper">
+  {% include 'nav.html' %}
+</div>
+{% include 'pop.html' %}
+<!-- header ends -->
+  <div class="container">
+    <h1>Registration Form</h1>
+    <span id="result" style="color:red">
+  {% for message in messages %}
+  ** {{message}} **
+  {% endfor %}
+    </span>
+    <br>
+    <form  enctype="multipart/form-data" action="{% url 'register' %}" method="post" onsubmit="return validateForm()">
+      {% csrf_token %}
+      <div class="form first">
+        <div class="details personal">
+          <span class="title"></span>
+
+
+          <div class="fields">
+            <div class="input-field">
+              <label>First Name</label>
+              <input type="text" name="first_name" id="firstname" placeholder="Enter first name">
+            </div>
+
+            <div class="input-field">
+              <label>Last Name</label>
+              <input type="text" name="last_name" id="lastname" placeholder="Enter last name">
+            </div>
+
+            <div class="input-field">
+              <label>Username</label>
+              <input type="text" name="username" id="username" placeholder="Enter username">
+            </div>
+
+            <div class="input-field">
+              <label>Email</label>
+              <input type="email" name="email" id="email" placeholder="Enter email ">
+            </div>
+
+            <div class="input-field">
+              <label>Password</label>
+              <input type="password" name="password" id="password" placeholder="Enter Password">
+            </div>
+
+            <div class="input-field">
+              <label>Confirm Password</label>
+              <input type="password" name="confirmPassword"  id="confirm-password" placeholder="Confirm Password">
+            </div>
+          </div>
+        </div>
+        <div class="fields">
+          <div class="input-field">
+            <label>Phone</label>
+            <input type="tel" maxlength="10" name="phone" id="phone" placeholder="Enter Phone Number">
+          </div>
+
+          <div class="input-field">
+            <label>Select User Type</label>
+            <select  name="user_type" required>
+              <option disabled selected>Select User Type</option>
+              <option value="customer">Room Owner</option>
+              <option  value="room_owner">Customer</option>
+            </select>
+          </div>
+
+          <div class="input-field">
+            <label>Address</label>
+            <input type="text" name="address" id="address" placeholder="Enter Address">
+          </div>
+
+          <div class="input-field">
+            <label>Upload ID image</label>
+            <input  type="file" id="file"  name="certificate" >
+          </div>
+        </div>
+
+        <button type="Submit">Register</button>
+      </div>
+  </div>
+  </form>
+  </div>
+</body>
+</html>

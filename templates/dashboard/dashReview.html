@@ -1,0 +1,68 @@
+{% extends './dashBase.html' %}
+{% load static %}
+{% block content %}
+<div id="main">
+
+	<div class="head">
+		<div class="col-div-6">
+<span style="font-size:30px;cursor:pointer; color: rgb(0, 0, 0);" class="nav"  >&#9776;  Reviews</span>
+<span style="font-size:30px;cursor:pointer; color: rgb(0, 0, 0);" class="nav2"  >&#9776; Reviews</span>
+</div>
+	
+	<div class="col-div-6">
+	
+</div>
+	<div class="clearfix"></div>
+</div>
+
+	<div class="clearfix"></div>
+	<br/>
+	
+	
+	<div class="col-div-8">
+		<div class="box-8">
+		<div class="content-box">
+			
+			
+  <table class="appointments">
+    <thead>
+      <tr>
+        <th scope="col">Room Id</th>
+        <th scope="col">Owner</th>
+        <th scope="col">User</th>
+        <th scope="col">Rate</th>
+        <th scope="col">Address</th>
+        <th scope="col" colspan="2">Date</th>
+        <th></th>
+        
+        {% comment %} 
+        <th scope="col">Header</th>
+        <th scope="col">Header</th>
+        <th scope="col">Header</th> {% endcomment %}
+
+      </tr>
+  </thead>
+  <tbody>
+
+    {% for review in reviews %}
+
+    <tr>
+      <td>{{review.room.id}} </td>
+      <td>{{review.room.owner}}</td>
+      <td>{{review.user}}</td>
+      <td>{{review.rate}} / 10</td>
+      <td>{{review.room.address}} </td>
+      <td >{{review.date}} </td>
+      <td><a href=" {% url 'deleteReview' review.id %} "> <i class="far fa-trash-alt"></i></a></td>
+    </tr>
+   {% endfor %}
+  </tbody>
+</table>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+    
+    </body>
+    {% endblock content %} 

@@ -1,0 +1,82 @@
+{% extends './dashBase.html' %}
+
+{% block content %}
+<div id="main">
+
+	<div class="head">
+		<div class="col-div-6">
+<span style="font-size:30px;cursor:pointer; color: rgb(0, 0, 0);" class="nav"  >&#9776; Dashboard</span>
+<span style="font-size:30px;cursor:pointer; color: rgb(0, 0, 0);" class="nav2"  >&#9776; Dashboard</span>
+</div>
+	
+	<div class="col-div-6">
+	
+</div>
+	<div class="clearfix"></div>
+</div>
+
+	<div class="clearfix"></div>
+	<br/>
+	
+	<div class="col-div-3">
+		<div class="box">
+			<p>{{users.count}} <br/><span>Users</span></p>
+			<i class="fa fa-users box-icon"></i>
+		</div>
+	</div>
+	<div class="col-div-3">
+		<div class="box">
+			<p>{{rooms.count}} <br/><span>Rooms</span></p>
+			<i class="fa fa-list box-icon"></i>
+		</div>
+	</div>
+	<div class="col-div-3">
+		<div class="box">
+			<p>{{bookings.count}} <br/><span>Bookings</span></p>
+			<i class="fa fa-tasks box-icon"></i>
+		</div>
+	</div>
+	<div class="col-div-3">
+		<div class="box">
+			<p>{{reviews.count}} <br/><span>Reviews</span></p>
+			<i class="fa fa-tasks box-icon"></i>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<br/><br/>
+	<div class="col-div-8">
+		<div class="box-8">
+		<div class="content-box">
+			<p>Recently Viewed Customers <span><a href=" {% url 'dashUser' %}"> <i class="far fa-eye"></i></a> </span></p>
+			<br/>
+			
+  <table class="appointments">
+    <thead>
+        <td>Full Name</td>
+        <td>UserName</td>
+        <td>User Type</td>
+        <td>Actions</td>
+    </thead>
+    <tbody>
+
+     {% for user in users %}
+
+        <tr>
+            <td>{{user.first_name}} {{user.last_name}} </td>
+            <td>{{user.username}} </td>
+            <td>{{user.customuser.user_type}} </td>
+            <td>
+                {% comment %} <i class="far fa-eye"></i> {% endcomment %}
+               <a href="{% url 'editProfile' user.id %}" > <i class="far fa-edit"></i></a>
+               <a href=" {% url 'deleteProfile' user.id %}  " > <i class="far fa-trash-alt"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+                </tbody>
+                </table>
+                </div>
+                </div>
+                </div>
+                </div>
+                
+  {% endblock content %}

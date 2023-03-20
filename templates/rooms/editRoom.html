@@ -1,0 +1,138 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!----======== CSS ======== -->
+
+    <link rel="stylesheet" href=" {% static 'css/add_room.css' %}">
+     
+    <!----===== Iconscout CSS ===== -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" /> 
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/f815347d2a.js" crossorigin="anonymous"></script>
+    <script src="../static/js/login.js"></script>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!--<title>Add Room </title>--> 
+    
+</head>
+<body>
+    <div class="wrapper">
+        <nav>
+            <input type="checkbox" id="show-menu">
+            <label for="show-menu" class="menu-icon"><i class="fas fa-bars"></i></label>
+            <div class="content">
+              <div class="logo"><a href="#">Rental&nbsp;Zone</a></div>
+              <ul class="links">
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <li><a href="/">Home</a></li>
+                <li><a href="#aboutUs">About</a></li>
+                <li><a href="{% url 'roomList' %}">Rooms</a></li>
+                <li><a href="#contactUs">Contact</a></li>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                
+                {% if request.user.is_staff %}
+                <li><a href="/accounts/dashboard" class="navButton" >Dashboard</a></li>
+                {% endif %}
+                {% if request.user.is_authenticated %}
+                <li><a href=" {% url 'logout' %} " class="navButton" >Logout</a></li>
+                <li><a href="/accounts/userProfile" class="navButton" >Profile</a></li>
+                {% else %}  
+                <li><a href="{% url 'login' %}" class="navButton" >Login</a></li>
+                <li><a href="/accounts/register" class="navButton" >Register</a></li>
+                {% endif%}
+            </div>
+          </nav>
+        
+      </div>
+    <div class="container">
+        <header>Update Room</header>
+
+        <form action="/updateRoom/{{room.id}} " method="POST" id="registration">
+            {% csrf_token %}
+            <div class="form first">
+                <div class="details personal">
+                    <span class="title">Room Details</span>
+
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>No Of Rooms</label>
+                            <input name="number_of_room" type="number" id="room_no" placeholder="Enter room numbers" value={{room.number_of_room}} required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>Total Price</label>
+                            <input  name="room_price"  type="number" id="room_price" placeholder="Enter room price"  value={{room.room_price}} required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>Area Of Room</label>
+                            <input name="area_of_room" type="text" id="" placeholder="Enter total area"  value={{room.area_of_room}} required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>Floor</label>
+                            <input type="text" name="floor" id="" placeholder="Enter total area" value={{room.floor}} required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>Parking </label>
+                            <select name="parking"  value="{{room.parking}}" required>
+                                <option disabled selected>Parking Available</option>
+                                <option value="True">Yes</option>
+                                <option value="False">No</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-field">
+                            <label>Address</label>
+                            <input type="text" value={{room.address}}   name="address" id="" placeholder="Enter Address" required>
+                        </div>
+                    </div>
+                </div>
+                     <div class="fields">
+                        <div class="input-field">
+                            <label>City</label>
+                            <input type="text" value={{room.city}}  name="city" placeholder="Enter city" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>State</label>
+                            <input type="text" value={{room.state}} name="state" id="phone" placeholder="Enter State" required>
+                        </div>
+                        
+
+                        <div class="input-field">
+                            <label>Room Discription</label>
+                            <input type="textarea"  value={{room.description}}  id="address" placeholder="Enter discription" required>
+                        </div>
+
+                         <div class="input-field">
+                            <label>Room Images</label>
+                            {% comment %} <input type="file"  id="file" name="image1" multiple> {% endcomment %}
+                            <input type="file" id="file" name="image2" multiple>
+                            <input type="file" id="file" name="image3" multiple>
+                            
+                        </div>
+                    </div>
+
+                    <button type="submit" class="nextBtn">
+                        <span class="btnText">Submit</span>
+                    </button>
+                </div> 
+            </div>
+            </div>
+        </form>
+    </div>
+
+    <!--<script src="script.js"></script>-->
+    <script src="/assets/js/register.js"></script>
+</body>
+</html>

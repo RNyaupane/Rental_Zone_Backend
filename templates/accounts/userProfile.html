@@ -1,0 +1,165 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rento Adminstrator</title>
+    <link href="https://fonts.googleapis.com/css?family=Inter:400,800,900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/f815347d2a.js" crossorigin="anonymous"></script>
+    <!-- <link rel="stylesheet" href="final dashboard/static/css/owner_dash.css"> -->
+    <link rel="stylesheet" href="{% static 'css/owner_dash.css' %}">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+</head>
+
+<body>
+    <div class="container">
+        <nav class="info_owner">
+            <div class="wrapper">
+                {% include 'nav.html' %}
+            </div>
+        </nav>
+        <main>
+            <label class="infoOwner"><b id="infoOwner">User Information</b></label><br>
+            <table class=table-content>
+                <tr>
+                    <th>Full Name:</th>
+                    <td>{{request.user.first_name}} {{request.user.last_name}}</td>
+                </tr>
+                <tr>
+                    <th>Email:</th>
+                    <td>{{request.user.email}}</td>
+                </tr>
+                <tr>
+                    <th>Phone:</th>
+                    <td>{{userInfo.phone}}</td>
+                </tr>
+                <tr>
+                    <th>Role:</th>
+                    <td>{{userInfo.user_type}}</td>
+                </tr>
+                <tr>
+                    <th>Address:</th>
+                    <td>{{userInfo.address}}</td>
+                </tr>
+            </table>
+
+
+        </main>
+        <div id="sidebar">
+            <label class="info_owner"></label> <br>
+            <div class="image">
+                <img src="{{userInfo.certificate.url}}" class="image-owner" alt="owner image">
+            </div>
+            <p id="Namee">{{request.user.username}}</p>
+            <p id="userType">( {{userInfo.user_type}} )</p>
+            {%if userInfo.user_type == 'room_owner' %}
+            <a href="{% url 'addRoom' %} "> <button type="submit" class="btn" id="addbtn">ADD<br> ROOM</button></a> 
+            {% endif %}
+            <a href="/accounts/editProfile/{{request.user.id}}"> <button type="submit" class="btn" id="updatebtn">UPDATE<br> PROFILE</button></a>
+            <a href="/accounts/deleteProfile/{{request.user.id}}">
+            <button type="submit" class="btn" id="deletebtn">DELETE<br> PROFILE</button>
+        </a>
+
+        </div>
+        {% if userInfo.user_type == 'room_owner' %}
+        <div id="content1">
+            <table class="table-content2">
+                <tr>
+                    <th>Room ID</th>
+                    <th>NO of Rooms</th>
+                    <th>Address</th>
+                    <th>Customer Info</th>
+                    <th>Status</th>
+                    <th>Update Status</th>              
+                </tr>
+                {% for room in rooms %}
+                <tr>
+                    <td>{{room.id}}</td>
+                    <td>{{room.number_of_room}} </td>
+                    <td>{{room.address}}</td>
+                    <td>
+                        {% if room.room_booking.all %}
+                        {% for bookedRoom in room.room_booking.all %}
+                        <p>{{bookedRoom.customer}}</p>
+                        {% endfor %}
+                        {% else %}
+                        <p>-</p>
+                        {% endif %}
+                    </td>
+                    <td>
+                    {% for bookedRoom in room.room_booking.all %}
+                    <p> {{bookedRoom.book_status}}</p>
+                    {% endfor %}
+                    </td>
+                    {% comment %} {% for bookedRoom in room.room_booking.all %} {% endcomment %}
+
+                    <td>
+                        {% for bookedRoom in room.room_booking.all %}
+                            <p> <a href="/editBookStatus/{{bookedRoom.id}}">
+                                <i class="fa-regular fa-pen-to-square">
+                                </i>
+                            </a>
+                        </p>
+                        {% endfor %}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+
+        {% if userInfo.user_type == 'customer' %}
+        <div id="content1">
+            <table class="table-content2">
+                <tr>
+                    <th>Room ID</th>
+                    <th>NO of Rooms</th>
+                    <th>Address</th>
+                    <th>Customer Info</th>
+                    <th>Status</th>
+                    <th>Update Status</th>              
+                </tr>
+                {% for room in rooms %}
+                <tr>
+                    <td>{{room.id}}</td>
+                    <td>{{room.number_of_room}} </td>
+                    <td>{{room.address}}</td>
+                    <td>
+                        {% if room.room_booking.all %}
+                        {% for bookedRoom in room.room_booking.all %}
+                        <p>{{bookedRoom.customer}}</p>
+                        {% endfor %}
+                        {% else %}
+                        <p>-</p>
+                        {% endif %}
+                    </td>
+                    <td>
+                    {% for bookedRoom in room.room_booking.all %}
+                    <p> {{bookedRoom.book_status}}</p>
+                    {% endfor %}
+                    </td>
+                    <td>
+                        {% for bookedRoom in room.room_booking.all %}
+                            <p> <a href="/editBookStatus/{{bookedRoom.id}}">
+                                <i class="fa-regular fa-pen-to-square">
+                                </i>
+                            </a>
+                        </p>
+                        {% endfor %}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+
+    </div>
+</body>
+
+</html>

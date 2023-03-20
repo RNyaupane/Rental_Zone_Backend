@@ -1,0 +1,102 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rental Zone</title>
+  <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+  <!-- <link rel="stylesheet" href="./static/css/roomProfile.css"> -->
+  {% comment %} <link rel="stylesheet" href="./static/css/footer.css">
+  <link rel="stylesheet" href="./static/css/style.css">
+  <link rel="stylesheet" href="./static/css/rooms.css"> {% endcomment %}
+
+  <link rel="stylesheet" href=" {% static 'css/style.css' %} ">
+  <link rel="stylesheet" href="{% static 'css/rooms.css' %}">
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+
+  <script src="js/script.js"></script>
+</head>
+
+<body>
+
+  <!-- header  -->
+
+  <div class="wrapper">
+    {% comment %} {% include 'pop.html' %} {% endcomment %}
+
+    {% include './nav.html' %}
+  </div>
+  <!-- header ends -->
+  
+  <!-- home   -->
+  
+  <section class="home" id="home">
+    
+  </section>
+
+  <!-- home  -->
+
+  <!-- **************Latest Rooom************** -->
+  <section class="categories" id="rooms">
+
+    <h1 class="heading"> Latest Rooms</h1>
+
+    <div class="box-container">
+
+      {% for room in latest_four %}
+      <div class="box">
+        <img src="{{room.image1.url}}" alt="">
+        <h3>{{room.address}}</h3>
+        <p>Price: &nbsp;<b>Rs. {{room.room_price}}</b> </p>
+        <p>Location: &nbsp;<b>{{room.city}}</b> </p>
+        <p>Rooms: &nbsp;<b>  {{room.available_rooms}}</b> </p>
+        <a href="/roomView/{{room.id}} " class="viewDetainbtn">View details</a>
+      </div>
+      {% endfor %}    
+      </div>
+  </section>
+
+  <!-- slideImage   -->
+
+  <!-- <section class="rooms" id="aboutUs">
+
+    <h1 class="heading"> About &nbsp; us </h1>
+    <div class="slider">
+        <div class="slider-items">
+           <div class="item active">
+              <img src="image/roomSlider1.jpg" id="slide-image" />
+           </div>
+           <div  class="item">
+               <img src="image/roomSlider2.jpg" />
+            </div>
+            <div  class="item">
+               <img src="image/roomSlider3.jpg" />
+            </div>
+  
+        </div>
+         slider controls 
+        <div class="left-slide"><</div>
+              <div class="right-slide">></div>
+              slider controls 
+        </div>
+        <script src="js/script.js"></script> -->
+
+  <!-- slideImage Ends  -->
+
+  {% include './footer.html' %}
+
+  <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
+  <!-- custom js file link  -->
+  <script src="js/script.js"></script>
+
+</body>
+
+</html>
